@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Crear mi CV | NextHire</title>
+
+    <style>
+        :root {
+            --lila: #8b5cf6;
+            --lila-claro: #f1ebff;
+            --azul: #172554;
+            --blanco: #ffffff;
+            --fondo: #f5f6fc;
+            --texto: #27324b;
+            --gris: #68738a;
+            --borde: #e2e5ef;
+            --verde: #238653;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: var(--fondo);
+            color: var(--texto);
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font: inherit;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* ENCABEZADO */
+
+        .topbar {
+            min-height: 74px;
+            padding: 16px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            background: var(--blanco);
+            border-bottom: 1px solid var(--borde);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--azul);
+            text-decoration: none;
+            font-size: 23px;
+            font-weight: 800;
+        }
+
+        .brand-icon {
+            width: 39px;
+            height: 39px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: var(--lila);
+            color: white;
+        }
+
+        .brand-dot {
+            color: var(--lila);
+        }
+
+        .back-link {
+            color: var(--azul);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            color: var(--lila);
+        }
+
+        /* INTRODUCCIÓN */
+
+        .page-heading {
+            max-width: 1200px;
+            margin: 35px auto 25px;
+            padding: 0 24px;
+        }
+
+        .eyebrow {
+            color: var(--lila);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .page-heading h1 {
+            margin: 9px 0;
+            color: var(--azul);
+            font-size: clamp(28px, 4vw, 39px);
+        }
+
+        .page-heading p {
+            margin: 0;
+            color: var(--gris);
+            line-height: 1.7;
+        }
+
+        /* SELECTOR DE FORMATOS */
+
+        .format-section {
+            max-width: 1200px;
+            margin: 0 auto 24px;
+            padding: 0 24px;
+        }
+
+        .format-section h2 {
+            margin: 0 0 14px;
+            color: var(--azul);
+            font-size: 17px;
+        }
+
+        .format-options {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .format-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 18px;
+            text-align: left;
+            border: 2px solid var(--borde);
+            border-radius: 15px;
+            background: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .format-card:hover {
+            border-color: var(--lila);
+        }
+
+        .format-card.active {
+            border-color: var(--lila);
+            background: var(--lila-claro);
+        }
+
+        .format-symbol {
+            flex-shrink: 0;
+            width: 45px;
+            height: 53px;
+            display: grid;
+            place-items: center;
+            border-radius: 9px;
+            background: white;
+            color: var(--azul);
+            font-size: 24px;
+            border: 1px solid var(--borde);
+        }
+
+        .format-card strong {
+            display: block;
+            color: var(--azul);
+            margin-bottom: 5px;
+        }
+
+        .format-card small {
+            display: block;
+            color: var(--gris);
+            line-height: 1.5;
+        }
+
+        /* ÁREA PRINCIPAL */
+
+        .workspace {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 45px;
+            display: grid;
+            grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+            align-items: start;
+            gap: 24px;
+        }
+
+        .editor,
+        .preview-panel {
+            min-width: 0;
+            background: white;
+            border: 1px solid var(--borde);
+            border-radius: 18px;
+            overflow: hidden;
+        }
+
+        .panel-heading {
+            padding: 22px 24px;
+            border-bottom: 1px solid var(--borde);
+        }
+
+        .panel-heading h2 {
+            margin: 0 0 7px;
+            color: var(--azul);
+            font-size: 20px;
+        }
+
+        .panel-heading p {
+            margin: 0;
+            color: var(--gris);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .editor-content {
+            padding: 22px 24px;
+        }
+
+        .form-section-title {
+            margin: 25px 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--borde);
+            color: var(--azul);
+            font-size: 16px;
+        }
+
+        .form-section-title:first-child {
+            margin-top: 0;
+        }
+
+        .field {
+            margin-bottom: 16px;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 7px;
+            color: var(--texto);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .field input,
+        .field textarea {
+            width: 100%;
+            padding: 12px 13px;
+            border: 1px solid #d8ddea;
+            border-radius: 9px;
+            background: white;
+            color: var(--texto);
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .field input:focus,
+        .field textarea:focus {
+            border-color: var(--lila);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.12);
+        }
+
+        .field textarea {
+            min-height: 100px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .field small {
+            display: block;
+            margin-top: 6px;
+            color: var(--gris);
+            line-height: 1.5;
+        }
+
+        .two-columns {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .privacy-note {
+            margin-top: 18px;
+            padding: 13px;
+            border-radius: 10px;
+            background: #f4f1ff;
+            color: #504078;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        /* VISTA PREVIA */
+
+        .preview-panel {
+            position: sticky;
+            top: 18px;
+        }
+
+        .preview-toolbar {
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--borde);
+        }
+
+        .preview-toolbar strong {
+            color: var(--azul);
+            font-size: 14px;
+        }
+
+        .preview-status {
+            color: var(--verde);
+            font-size: 12px;
+        }
+
+        .preview-area {
+            padding: 20px;
+            background: #edf0f7;
+            overflow-x: auto;
+        }
+
+        .cv-document {
+            width: 100%;
+            max-width: 650px;
+            min-height: 700px;
+            margin: 0 auto;
+            padding: 34px;
+            background: white;
+            box-shadow: 0 4px 20px rgba(23, 37, 84, 0.09);
+            overflow-wrap: anywhere;
+        }
+
+        .cv-document h1 {
+            margin: 0;
+            color: var(--azul);
+            font-size: 27px;
+            line-height: 1.25;
+        }
+
+        .cv-document h2 {
+            margin: 23px 0 9px;
+            padding-bottom: 6px;
+            color: var(--azul);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--borde);
+        }
+
+        .cv-document p {
+            margin: 6px 0;
+            color: #4d586d;
+            font-size: 12px;
+            line-height: 1.7;
+            white-space: pre-line;
+        }
+
+        .cv-contact {
+            margin-top: 12px !important;
+        }
+
+        .cv-subtitle {
+            color: var(--lila) !important;
+            font-size: 12px !important;
+            font-weight: 700;
+        }
+
+        .cv-entry {
+            margin-top: 12px;
+        }
+
+        .cv-entry strong {
+            display: block;
+            color: var(--azul);
+            font-size: 13px;
+        }
+
+        .cv-empty {
+            color: #8a93a7 !important;
+            font-style: italic;
+        }
+
+        /* ESTILO CLÁSICO */
+
+        .cv-document.classic {
+            font-family: Arial, sans-serif;
+            border-top: 5px solid #26344b;
+        }
+
+        .cv-document.classic h1 {
+            font-size: 25px;
+        }
+
+        .cv-document.classic h2 {
+            color: #26344b;
+            border-bottom: 1px solid #bfc5cf;
+        }
+
+        .cv-document.classic .cv-subtitle {
+            color: #45546a !important;
+        }
+
+        /* ESTILO MODERNO */
+
+        .cv-document.modern {
+            border-top: 7px solid var(--lila);
+            border-radius: 4px;
+        }
+
+        .cv-document.modern h1 {
+            color: var(--azul);
+            font-size: 29px;
+        }
+
+        .cv-document.modern h2 {
+            color: var(--lila);
+            border-bottom: 2px solid var(--lila-claro);
+        }
+
+        /* BOTONES */
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 18px 20px;
+            border-top: 1px solid var(--borde);
+        }
+
+        .button {
+            min-height: 44px;
+            padding: 12px 16px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            border-radius: 9px;
+            font-weight: 700;
+            font-size: 13px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .button-primary {
+            background: var(--lila);
+            color: white;
+        }
+
+        .button-primary:hover {
+            background: #7442df;
+        }
+
+        .button-secondary {
+            background: var(--lila-claro);
+            color: var(--azul);
+        }
+
+        .button-secondary:hover {
+            background: #e6dcff;
+        }
+
+        .actions .button {
+            flex: 1;
+        }
+
+        .footer {
+            padding: 24px;
+            text-align: center;
+            color: var(--gris);
+            font-size: 12px;
+        }
+
+        /* IMPRESIÓN Y PDF */
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 15mm;
+            }
+
+            body {
+                background: white !important;
+            }
+
+            body * {
+                visibility: hidden !important;
+            }
+
+            #cvDocument,
+            #cvDocument * {
+                visibility: visible !important;
+            }
+
+            #cvDocument {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                max-width: none;
+                min-height: 0;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+                border-radius: 0;
+                border-top: none;
+            }
+
+            #cvDocument.classic {
+                border-top: none;
+            }
+
+            #cvDocument.modern {
+                border-top: 5px solid var(--lila);
+            }
+
+            .cv-document h2,
+            .cv-entry {
+                break-inside: avoid;
+            }
+        }
+
+        /* ADAPTACIÓN A CELULARES */
+
+        @media (max-width: 850px) {
+            .workspace {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-panel {
+                position: static;
+            }
+
+            .format-options {
+                grid-template-columns: 1fr;
+            }
+
+            .cv-document {
+                min-height: 600px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .topbar {
+                padding: 14px 18px;
+            }
+
+            .brand {
+                font-size: 20px;
+            }
+
+            .header-message {
+                font-size: 12px;
+            }
+
+            .page-heading {
+                margin-top: 25px;
+            }
+
+            .workspace,
+            .format-section {
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+
+            .editor-content {
+                padding: 18px;
+            }
+
+            .two-columns {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .preview-area {
+                padding: 10px;
+            }
+
+            .cv-document {
+                padding: 22px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="topbar">
+        <a href="panel-persona.html" class="brand">
+            <span class="brand-icon">N</span>
+            <span>NextHire<span class="brand-dot">.</span></span>
+        </a>
+
+        <a href="panel-persona.html" class="back-link">
+            ← Volver a mi espacio
+        </a>
+    </header>
+
+    <main>
+
+        <section class="page-heading">
+            <span class="eyebrow">TU FUTURO PROFESIONAL</span>
+            <h1>Creá tu currículum</h1>
+            <p>
+                Completá tus datos, elegí tu diseño y prepará tu CV
+                para tus próximas oportunidades.
+            </p>
+        </section>
+
+        <section class="format-section">
+            <h2>1. Elegí el formato de tu currículum</h2>
+
+            <div class="format-options">
+
+                <button
+                    type="button"
+                    class="format-card active"
+                    data-format="classic"
+                    aria-pressed="true"
+                >
+                    <span class="format-symbol">▤</span>
+                    <span>
+                        <strong>Clásico profesional</strong>
+                        <small>
+                            Diseño sobrio, ordenado y tradicional.
+                        </small>
+                    </span>
+                </button>
+
+                <button
+                    type="button"
+                    class="format-card"
+                    data-format="modern"
+                    aria-pressed="false"
+                >
+                    <span class="format-symbol">✦</span>
+                    <span>
+                        <strong>Moderno profesional</strong>
+                        <small>
+                            Diseño actual con detalles en lila.
+                        </small>
+                    </span>
+                </button>
+
+            </div>
+        </section>
+
+        <section class="workspace">
+
+            <!-- FORMULARIO -->
+            <section class="editor">
+
+                <div class="panel-heading">
+                    <h2>2. Tus datos</h2>
+                    <p>
+                        Completá las secciones que correspondan a tu
+                        situación. Los cambios aparecerán en la vista previa.
+                    </p>
+                </div>
+
+                <form id="cvForm" class="editor-content">
+
+                    <h3 class="form-section-title">
+                        Datos personales
+                    </h3>
+
+                    <div class="field">
+                        <label for="fullName">Nombre y apellido *</label>
+                        <input
+                            type="text"
+                            id="fullName"
+                            placeholder="Ej.: María González"
+                            autocomplete="name"
+                            required
+                        >
+                    </div>
+
+                    <div class="two-columns">
+                        <div class="field">
+                            <label for="city">Ciudad y país</label>
+                            <input
+                                type="text"
+                                id="city"
+                                placeholder="Ej.: Luque, Paraguay"
+                                autocomplete="address-level2"
+                            >
+                        </div>
+
+                        <div class="field">
+                            <label for="phone">Teléfono</label>
+                            <input
+                                type="tel"
+                                id="phone"
+                                placeholder="Tu número de contacto"
+                                autocomplete="tel"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="email">Correo electrónico *</label>
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="tu@correo.com"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+
+                    <div class="field">
+                        <label for="linkedin">LinkedIn o portafolio (opcional)</label>
+                        <input
+                            type="url"
+                            id="linkedin"
+                            placeholder="https://..."
+                        >
+                    </div>
+
+                    <h3 class="form-section-title">
+                        Perfil profesional
+                    </h3>
+
+                    <div class="field">
+                        <label for="profile">Presentación personal</label>
+                        <textarea
+                            id="profile"
+                            placeholder="Contá brevemente tus conocimientos, fortalezas y objetivos profesionales."
+                        ></textarea>
+                        <small>
+                            Si todavía estudiás, podés explicar qué área
+                            te interesa y qué te gustaría aprender.
+                        </small>
+                    </div>
+
+                    <h3 class="form-section-title">
+                        Formación académica
+                    </h3>
+
+                    <div class="field">
+                        <label for="education">Estudios e instituciones</label>
+                        <textarea
+                            id="education"
+                            placeholder="Ej.: Bachillerato Técnico en Informática&#10;Institución educativa&#10;En curso"
+                        ></textarea>
+                    </div>
+
+                    <h3 class="form-section-title">
+                        Experiencia laboral
+                    </h3>
+
+                    <div class="field">
+                        <label for="experience">Experiencia y responsabilidades</label>
+                        <textarea
+                            id="experience"
+                            placeholder="Empresa, cargo, período y principales tareas. Si todavía no tenés experiencia, podés dejarlo vacío."
+                        ></textarea>
+                        <small>
+                            No es necesario haber trabajado antes para crear tu CV.
+                        </small>
+                    </div>
+
+                    <h3 class="form-section-title">
+                        Habilidades y conocimientos
+                    </h3>
+
+                    <div class="field">
+                        <label for="skills">Tus habilidades</label>
+                        <textarea
+                            id="skills"
+                            placeholder="Ej.: Word, Excel, programación básica, comunicación, trabajo en equipo."
+                        ></textarea>
+                    </div>
+
+                    <h3 class="form-section-title">
+                        Cursos y capacitaciones
+                    </h3>
+
+                    <div class="field">
+                        <label for="courses">Cursos, certificados u otros estudios</label>
+                        <textarea
+                            id="courses"
+                            placeholder="Nombre del curso, institución y año, si corresponde."
+                        ></textarea>
+                    </div>
+
+                    <div class="privacy-note">
+                        🔒 Consejo: incluí solamente la información necesaria
+                        para tu búsqueda laboral. No agregues contraseñas,
+                        números de documentos ni otros datos privados.
+                    </div>
+
+                    <div class="actions">
+                        <button
+                            type="button"
+                            class="button button-primary"
+                            id="generateButton"
+                        >
+                            Generar mi CV →
+                        </button>
+                    </div>
+
+                    <p
+                        id="formMessage"
+                        role="status"
+                        style="font-size:13px; line-height:1.6;"
+                    ></p>
+
+                </form>
+            </section>
+
+            <!-- VISTA PREVIA -->
+            <section class="preview-panel">
+
+                <div class="preview-toolbar">
+                    <strong>Vista previa de tu CV</strong>
+                    <span class="preview-status" id="previewStatus">
+                        En edición
+                    </span>
+                </div>
+
+                <div class="preview-area">
+
+                    <article class="cv-document classic" id="cvDocument">
+
+                        <h1 id="previewName">Tu nombre y apellido</h1>
+
+                        <p class="cv-subtitle" id="previewSubtitle">
+                            PERFIL PROFESIONAL
+                        </p>
+
+                        <p class="cv-contact" id="previewContact">
+                            Tu ciudad · Tu correo electrónico
+                        </p>
+
+                        <p id="previewLinkedin"></p>
+
+                        <section>
+                            <h2>Perfil profesional</h2>
+                            <p id="previewProfile" class="cv-empty">
+                                Tu presentación personal aparecerá aquí.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h2>Formación académica</h2>
+                            <p id="previewEducation" class="cv-empty">
+                                Tus estudios aparecerán aquí.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h2>Experiencia laboral</h2>
+                            <p id="previewExperience" class="cv-empty">
+                                Tu experiencia aparecerá aquí si decidís incluirla.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h2>Habilidades y conocimientos</h2>
+                            <p id="previewSkills" class="cv-empty">
+                                Tus habilidades aparecerán aquí.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h2>Cursos y capacitaciones</h2>
+                            <p id="previewCourses" class="cv-empty">
+                                Tus cursos aparecerán aquí si tenés alguno.
+                            </p>
+                        </section>
+
+                    </article>
+
+                </div>
+
+                <div class="actions">
+                    <button
+                        type="button"
+                        class="button button-secondary"
+                        id="refreshButton"
+                    >
+                        Actualizar vista previa
+                    </button>
+
+                    <button
+                        type="button"
+                        class="button button-primary"
+                        id="downloadButton"
+                    >
+                        Imprimir / Guardar PDF
+                    </button>
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        NextHire © 2026 · Tu próximo paso comienza aquí.
+    </footer>
+
+    <script>
+        "use strict";
+
+        const cvForm = document.getElementById("cvForm");
+        const cvDocument = document.getElementById("cvDocument");
+        const formMessage = document.getElementById("formMessage");
+        const previewStatus = document.getElementById("previewStatus");
+
+        const fields = {
+            fullName: document.getElementById("fullName"),
+            city: document.getElementById("city"),
+            phone: document.getElementById("phone"),
+            email: document.getElementById("email"),
+            linkedin: document.getElementById("linkedin"),
+            profile: document.getElementById("profile"),
+            education: document.getElementById("education"),
+            experience: document.getElementById("experience"),
+            skills: document.getElementById("skills"),
+            courses: document.getElementById("courses")
+        };
+
+        let selectedFormat = "classic";
+
+        function showText(elementId, value, placeholder) {
+            const element = document.getElementById(elementId);
+            const cleanValue = value.trim();
+
+            element.textContent = cleanValue || placeholder;
+            element.classList.toggle("cv-empty", !cleanValue);
+        }
+
+        function updatePreview() {
+            const name = fields.fullName.value.trim();
+
+            document.getElementById("previewName").textContent =
+                name || "Tu nombre y apellido";
+
+            const subtitle = document.getElementById("previewSubtitle");
+
+            subtitle.textContent = fields.profile.value.trim()
+                ? "PERFIL PROFESIONAL"
+                : "CURRÍCULUM VITAE";
+
+            const contact = [
+                fields.city.value.trim(),
+                fields.phone.value.trim(),
+                fields.email.value.trim()
+            ].filter(Boolean);
+
+            document.getElementById("previewContact").textContent =
+                contact.length
+                    ? contact.join(" · ")
+                    : "Tu ciudad · Tu correo electrónico";
+
+            const linkedin = document.getElementById("previewLinkedin");
+            const linkValue = fields.linkedin.value.trim();
+
+            linkedin.textContent = linkValue;
+            linkedin.hidden = !linkValue;
+
+            showText(
+                "previewProfile",
+                fields.profile.value,
+                "Tu presentación personal aparecerá aquí."
+            );
+
+            showText(
+                "previewEducation",
+                fields.education.value,
+                "Tus estudios aparecerán aquí."
+            );
+
+            showText(
+                "previewExperience",
+                fields.experience.value,
+                "Tu experiencia aparecerá aquí si decidís incluirla."
+            );
+
+            showText(
+                "previewSkills",
+                fields.skills.value,
+                "Tus habilidades aparecerán aquí."
+            );
+
+            showText(
+                "previewCourses",
+                fields.courses.value,
+                "Tus cursos aparecerán aquí si tenés alguno."
+            );
+
+            previewStatus.textContent = "Vista previa actualizada";
+        }
+
+        function selectFormat(format) {
+            selectedFormat = format;
+
+            cvDocument.classList.remove("classic", "modern");
+            cvDocument.classList.add(format);
+
+            document.querySelectorAll(".format-card").forEach(function(card) {
+                const isActive = card.dataset.format === format;
+
+                card.classList.toggle("active", isActive);
+                card.setAttribute("aria-pressed", String(isActive));
+            });
+
+            previewStatus.textContent =
+                format === "classic"
+                    ? "Formato clásico"
+                    : "Formato moderno";
+        }
+
+        document.querySelectorAll(".format-card").forEach(function(card) {
+            card.addEventListener("click", function() {
+                selectFormat(card.dataset.format);
+            });
+        });
+
+        Object.values(fields).forEach(function(field) {
+            field.addEventListener("input", updatePreview);
+        });
+
+        document.getElementById("refreshButton").addEventListener(
+            "click",
+            updatePreview
+        );
+
+        document.getElementById("generateButton").addEventListener(
+            "click",
+            function() {
+                if (!cvForm.reportValidity()) {
+                    return;
+                }
+
+                updatePreview();
+
+                formMessage.textContent =
+                    "¡Tu CV está preparado! Revisá la vista previa antes de imprimirlo o guardarlo como PDF.";
+
+                formMessage.style.color = "#238653";
+
+                document.getElementById("cvDocument").scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            }
+        );
+
+        document.getElementById("downloadButton").addEventListener(
+            "click",
+            function() {
+                if (!cvForm.reportValidity()) {
+                    return;
+                }
+
+                updatePreview();
+
+                const originalTitle = document.title;
+                const safeName = fields.fullName.value
+                    .trim()
+                    .replace(/[\\/:*?"<>|]/g, "")
+                    .replace(/\s+/g, "-");
+
+                document.title = "CV-" + (safeName || "NextHire");
+
+                window.print();
+
+                document.title = originalTitle;
+            }
+        );
+
+        cvForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+        });
+
+        updatePreview();
+        selectFormat(selectedFormat);
+    </script>
+
+</body>
+</html>

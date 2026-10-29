@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Encontrá oportunidades de pasantías y comenzá tu experiencia profesional con NextHire."
+    >
+
+    <title>NextHire | Buscar pasantías</title>
+
+    <style>
+        :root {
+            --lila: #a78bfa;
+            --lila-claro: #f2edff;
+            --azul: #172554;
+            --azul-secundario: #263b70;
+            --blanco: #ffffff;
+            --fondo: #f7f8fc;
+            --texto: #263047;
+            --gris: #697386;
+            --borde: #e5e7ef;
+            --verde: #15803d;
+            --sombra: 0 12px 35px rgba(23, 37, 84, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--fondo);
+            color: var(--texto);
+            line-height: 1.6;
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .navbar {
+            background: var(--blanco);
+            border-bottom: 1px solid var(--borde);
+            padding: 17px 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand {
+            color: var(--azul);
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .brand span {
+            color: var(--lila);
+        }
+
+        .back-link {
+            color: var(--azul);
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            color: #7655d8;
+        }
+
+        .hero {
+            background: linear-gradient(125deg, #172554, #33467c);
+            color: var(--blanco);
+            padding: 55px 6% 65px;
+        }
+
+        .hero-content {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 7px 13px;
+            border-radius: 30px;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            font-size: clamp(30px, 5vw, 44px);
+            line-height: 1.2;
+            margin-bottom: 14px;
+        }
+
+        .hero p {
+            color: #e0e7ff;
+            max-width: 650px;
+            margin-bottom: 27px;
+        }
+
+        .search-box {
+            background: var(--blanco);
+            border-radius: 16px;
+            padding: 12px;
+            display: grid;
+            grid-template-columns: 1fr 210px auto;
+            gap: 10px;
+            box-shadow: var(--sombra);
+        }
+
+        .search-box input,
+        .search-box select {
+            width: 100%;
+            min-width: 0;
+            padding: 13px;
+            border: 1px solid var(--borde);
+            border-radius: 9px;
+            color: var(--texto);
+            background: var(--blanco);
+            outline: none;
+        }
+
+        .search-box input:focus,
+        .search-box select:focus {
+            border-color: var(--lila);
+        }
+
+        .primary-button {
+            background: var(--lila);
+            color: var(--azul);
+            border: none;
+            border-radius: 9px;
+            padding: 13px 20px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .primary-button:hover {
+            background: #bba7ff;
+            transform: translateY(-1px);
+        }
+
+        .main-content {
+            max-width: 1100px;
+            margin: 38px auto 60px;
+            padding: 0 24px;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 15px;
+            margin-bottom: 24px;
+        }
+
+        .section-heading h2 {
+            color: var(--azul);
+            font-size: 27px;
+            margin-bottom: 5px;
+        }
+
+        .section-heading p {
+            color: var(--gris);
+            font-size: 14px;
+        }
+
+        .demo-label {
+            display: inline-block;
+            background: #fff4d8;
+            color: #805500;
+            padding: 7px 11px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .internship-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .internship-card {
+            background: var(--blanco);
+            border: 1px solid var(--borde);
+            border-radius: 17px;
+            padding: 23px;
+            box-shadow: var(--sombra);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .internship-card:hover {
+            transform: translateY(-3px);
+            border-color: #c8b8ff;
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            gap: 12px;
+            margin-bottom: 17px;
+        }
+
+        .company-icon {
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: var(--lila-claro);
+            font-size: 25px;
+            flex-shrink: 0;
+        }
+
+        .badge {
+            background: #eef2ff;
+            color: var(--azul-secundario);
+            padding: 6px 10px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .internship-card h3 {
+            color: var(--azul);
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .company-name {
+            color: var(--gris);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .description {
+            font-size: 14px;
+            margin-bottom: 17px;
+            color: #4b5568;
+        }
+
+        .details-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px 15px;
+            padding: 15px 0;
+            border-top: 1px solid var(--borde);
+            border-bottom: 1px solid var(--borde);
+            font-size: 12px;
+            color: var(--gris);
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 17px;
+        }
+
+        .secondary-button {
+            flex: 1;
+            background: var(--blanco);
+            color: var(--azul);
+            border: 1px solid #cfd5e4;
+            border-radius: 9px;
+            padding: 11px 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .secondary-button:hover {
+            background: var(--lila-claro);
+            border-color: var(--lila);
+        }
+
+        .apply-button {
+            flex: 1;
+            background: var(--azul);
+            color: var(--blanco);
+            border: none;
+            border-radius: 9px;
+            padding: 11px 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .apply-button:hover {
+            background: var(--azul-secundario);
+        }
+
+        .empty-state {
+            display: none;
+            background: var(--blanco);
+            border: 1px dashed #cfd5e4;
+            border-radius: 16px;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .empty-state h3 {
+            color: var(--azul);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            color: var(--gris);
+            margin-bottom: 18px;
+        }
+
+        .notice {
+            background: var(--lila-claro);
+            border: 1px solid #e0d5ff;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 25px;
+            color: var(--azul);
+            font-size: 13px;
+        }
+
+        .footer {
+            background: var(--blanco);
+            border-top: 1px solid var(--borde);
+            text-align: center;
+            padding: 23px;
+            color: var(--gris);
+            font-size: 13px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.65);
+            padding: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--blanco);
+            width: 100%;
+            max-width: 590px;
+            max-height: 85vh;
+            overflow-y: auto;
+            border-radius: 18px;
+            padding: 28px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 17px;
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 50%;
+            background: #f0f1f7;
+            color: var(--azul);
+            font-size: 23px;
+            cursor: pointer;
+        }
+
+        .modal-content h2 {
+            color: var(--azul);
+            margin: 8px 40px 8px 0;
+        }
+
+        .modal-company {
+            color: var(--gris);
+            margin-bottom: 20px;
+        }
+
+        .modal-content h3 {
+            color: var(--azul);
+            font-size: 16px;
+            margin: 19px 0 7px;
+        }
+
+        .modal-content p,
+        .modal-content li {
+            font-size: 14px;
+            color: #4b5568;
+        }
+
+        .modal-content ul {
+            padding-left: 22px;
+        }
+
+        .modal-action {
+            width: 100%;
+            margin-top: 22px;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        @media (max-width: 760px) {
+            .search-box {
+                grid-template-columns: 1fr;
+            }
+
+            .internship-list {
+                grid-template-columns: 1fr;
+            }
+
+            .section-heading {
+                align-items: start;
+                flex-direction: column;
+            }
+
+            .hero {
+                padding-top: 40px;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .navbar {
+                padding: 15px 5%;
+            }
+
+            .brand {
+                font-size: 23px;
+            }
+
+            .back-link {
+                font-size: 12px;
+            }
+
+            .main-content {
+                padding: 0 16px;
+            }
+
+            .internship-card {
+                padding: 18px;
+            }
+
+            .card-actions {
+                flex-direction: column;
+            }
+
+            .modal-content {
+                padding: 23px 19px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <a class="brand" href="index.html">Next<span>Hire</span></a>
+        <a class="back-link" href="panel-persona.html">← Volver a mi panel</a>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="eyebrow">Tu experiencia comienza aquí</span>
+
+            <h1>Encontrá tu próxima pasantía 💼</h1>
+
+            <p>
+                Descubrí oportunidades para aprender, desarrollar tus habilidades
+                y dar tus primeros pasos en el mundo profesional.
+            </p>
+
+            <form class="search-box" id="searchForm">
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Puesto, área, empresa o ciudad..."
+                    aria-label="Buscar pasantías"
+                >
+
+                <select id="modalityFilter" aria-label="Filtrar por modalidad">
+                    <option value="">Todas las modalidades</option>
+                    <option value="presencial">Presencial</option>
+                    <option value="remoto">Remoto</option>
+                    <option value="hibrido">Híbrido</option>
+                </select>
+
+                <button class="primary-button" type="submit">Buscar pasantías</button>
+            </form>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="section-heading">
+            <div>
+                <h2>Oportunidades para vos</h2>
+                <p id="resultCount">Explorá las pasantías disponibles en esta demostración.</p>
+            </div>
+
+            <span class="demo-label">Modo demostración</span>
+        </div>
+
+        <section class="internship-list" id="internshipList">
+
+            <article
+                class="internship-card"
+                data-title="Pasante de informática"
+                data-company="Tecnología del Futuro"
+                data-area="informática tecnología programación"
+                data-location="asunción"
+                data-modality="presencial"
+                data-description="Colaboración con el equipo de tecnología en tareas de soporte, revisión de equipos y documentación de procesos."
+                data-requirements="Estudiar informática o un área relacionada; tener interés por la tecnología; demostrar responsabilidad y ganas de aprender."
+                data-schedule="Horario a convenir con la institución educativa."
+            >
+                <div class="card-top">
+                    <div class="company-icon">💻</div>
+                    <span class="badge">Informática</span>
+                </div>
+
+                <h3>Pasante de informática</h3>
+                <p class="company-name">Tecnología del Futuro</p>
+
+                <p class="description">
+                    Aprendé sobre soporte técnico, herramientas digitales
+                    y tareas básicas de un equipo informático.
+                </p>
+
+                <div class="details-row">
+                    <span>📍 Asunción</span>
+                    <span>🏢 Presencial</span>
+                    <span>🎓 Para estudiantes</span>
+                </div>
+
+                <div class="card-actions">
+                    <button class="secondary-button details-button" type="button">
+                        Ver detalles
+                    </button>
+                    <button class="apply-button" type="button" onclick="applyForInternship(this)">
+                        Postularme →
+                    </button>
+                </div>
+            </article>
+
+            <article
+                class="internship-card"
+                data-title="Pasante administrativo"
+                data-company="Gestión Empresarial"
+                data-area="administración oficina organización"
+                data-location="luque"
+                data-modality="presencial"
+                data-description="Apoyo en organización de documentos, registro de información y tareas administrativas supervisadas."
+                data-requirements="Ser estudiante; contar con organización, puntualidad y disposición para aprender herramientas de oficina."
+                data-schedule="Horario a coordinar según las necesidades de la institución educativa."
+            >
+                <div class="card-top">
+                    <div class="company-icon">📊</div>
+                    <span class="badge">Administración</span>
+                </div>
+
+                <h3>Pasante administrativo</h3>
+                <p class="company-name">Gestión Empresarial</p>
+
+                <p class="description">
+                    Conocé cómo funciona una oficina y colaborá con
+                    documentos, registros y organización de información.
+                </p>
+
+                <div class="details-row">
+                    <span>📍 Luque</span>
+                    <span>🏢 Presencial</span>
+                    <span>🎓 Para estudiantes</span>
+                </div>
+
+                <div class="card-actions">
+                    <button class="secondary-button details-button" type="button">
+                        Ver detalles
+                    </button>
+                    <button class="apply-button" type="button" onclick="applyForInternship(this)">
+                        Postularme →
+                    </button>
+                </div>
+            </article>
+
+            <article
+                class="internship-card"
+                data-title="Pasante de diseño digital"
+                data-company="Estudio Creativo"
+                data-area="diseño digital creatividad redes sociales"
+                data-location="remoto"
+                data-modality="remoto"
+                data-description="Participación en actividades de diseño digital, organización de contenido y preparación de materiales visuales."
+                data-requirements="Interés por el diseño; creatividad; conocimientos básicos de herramientas digitales y disposición para recibir orientación."
+                data-schedule="Modalidad y horario a definir con la organización."
+            >
+                <div class="card-top">
+                    <div class="company-icon">🎨</div>
+                    <span class="badge">Diseño digital</span>
+                </div>
+
+                <h3>Pasante de diseño digital</h3>
+                <p class="company-name">Estudio Creativo</p>
+
+                <p class="description">
+                    Explorá el diseño de contenido visual y colaborá en
+                    actividades creativas para medios digitales.
+                </p>
+
+                <div class="details-row">
+                    <span>📍 Remoto</span>
+                    <span>🏠 Desde casa</span>
+                    <span>🎓 Para estudiantes</span>
+                </div>
+
+                <div class="card-actions">
+                    <button class="secondary-button details-button" type="button">
+                        Ver detalles
+                    </button>
+                    <button class="apply-button" type="button" onclick="applyForInternship(this)">
+                        Postularme →
+                    </button>
+                </div>
+            </article>
+
+            <article
+                class="internship-card"
+                data-title="Pasante de atención al cliente"
+                data-company="Servicios Integrales"
+                data-area="atención al cliente comunicación servicios"
+                data-location="luque"
+                data-modality="hibrido"
+                data-description="Acompañamiento en tareas de atención al cliente, organización de consultas y comunicación con el equipo."
+                data-requirements="Ser estudiante; tener buena comunicación, respeto, responsabilidad e interés por aprender."
+                data-schedule="Días y horarios a coordinar con la organización educativa y la empresa."
+            >
+                <div class="card-top">
+                    <div class="company-icon">🤝</div>
+                    <span class="badge">Atención al cliente</span>
+                </div>
+
+                <h3>Pasante de atención al cliente</h3>
+                <p class="company-name">Servicios Integrales</p>
+
+                <p class="description">
+                    Desarrollá habilidades de comunicación y aprendé a
+                    acompañar consultas y necesidades de los clientes.
+                </p>
+
+                <div class="details-row">
+                    <span>📍 Luque</span>
+                    <span>🔄 Híbrido</span>
+                    <span>🎓 Para estudiantes</span>
+                </div>
+
+                <div class="card-actions">
+                    <button class="secondary-button details-button" type="button">
+                        Ver detalles
+                    </button>
+                    <button class="apply-button" type="button" onclick="applyForInternship(this)">
+                        Postularme →
+                    </button>
+                </div>
+            </article>
+
+        </section>
+
+        <div class="empty-state" id="emptyState">
+            <h3>No encontramos pasantías con esos criterios</h3>
+            <p>Probá con otra palabra o elegí una modalidad diferente.</p>
+            <button class="primary-button" id="clearButton" type="button">
+                Ver todas las pasantías
+            </button>
+        </div>
+
+        <div class="notice">
+            <strong>Importante:</strong> las oportunidades que aparecen aquí son
+            ejemplos ficticios para demostrar el funcionamiento de NextHire.
+            No representan vacantes reales verificadas. En la versión conectada,
+            las empresas podrán publicar sus propias pasantías.
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 NextHire · Conectando estudiantes con oportunidades.</p>
+    </footer>
+
+    <div class="modal" id="detailsModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal" type="button" aria-label="Cerrar">
+                ×
+            </button>
+
+            <span class="badge" id="modalBadge">Pasantía</span>
+            <h2 id="modalTitle">Detalles de la pasantía</h2>
+            <p class="modal-company" id="modalCompany"></p>
+
+            <h3>Descripción</h3>
+            <p id="modalDescription"></p>
+
+            <h3>Requisitos</h3>
+            <p id="modalRequirements"></p>
+
+            <h3>Horario</h3>
+            <p id="modalSchedule"></p>
+
+            <h3>Ubicación y modalidad</h3>
+            <p id="modalLocation"></p>
+
+            <button class="apply-button modal-action" id="modalApplyButton" type="button">
+                Postularme →
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const searchForm = document.getElementById("searchForm");
+        const searchInput = document.getElementById("searchInput");
+        const modalityFilter = document.getElementById("modalityFilter");
+        const internshipList = document.getElementById("internshipList");
+        const internshipCards = Array.from(
+            document.querySelectorAll(".internship-card")
+        );
+        const emptyState = document.getElementById("emptyState");
+        const resultCount = document.getElementById("resultCount");
+        const clearButton = document.getElementById("clearButton");
+
+        const detailsModal = document.getElementById("detailsModal");
+        const closeModal = document.getElementById("closeModal");
+        const modalApplyButton = document.getElementById("modalApplyButton");
+
+        let selectedInternship = null;
+
+        function normalizeText(text) {
+            return text
+                .toLocaleLowerCase("es")
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "");
+        }
+
+        function filterInternships(event) {
+            if (event) {
+                event.preventDefault();
+            }
+
+            const searchTerm = normalizeText(searchInput.value.trim());
+            const selectedModality = modalityFilter.value;
+            let visibleCount = 0;
+
+            internshipCards.forEach((card) => {
+                const searchableText = normalizeText([
+                    card.dataset.title,
+                    card.dataset.company,
+                    card.dataset.area,
+                    card.dataset.location,
+                    card.dataset.description
+                ].join(" "));
+
+                const matchesSearch = searchableText.includes(searchTerm);
+                const matchesModality =
+                    !selectedModality ||
+                    card.dataset.modality === selectedModality;
+
+                const visible = matchesSearch && matchesModality;
+
+                card.hidden = !visible;
+
+                if (visible) {
+                    visibleCount++;
+                }
+            });
+
+            emptyState.style.display = visibleCount === 0 ? "block" : "none";
+            internshipList.hidden = visibleCount === 0;
+
+            resultCount.textContent =
+                visibleCount === 1
+                    ? "Encontramos 1 pasantía para vos."
+                    : `Encontramos ${visibleCount} pasantías para vos.`;
+        }
+
+        searchForm.addEventListener("submit", filterInternships);
+        modalityFilter.addEventListener("change", filterInternships);
+
+        searchInput.addEventListener("input", () => {
+            filterInternships();
+        });
+
+        clearButton.addEventListener("click", () => {
+            searchInput.value = "";
+            modalityFilter.value = "";
+            filterInternships();
+        });
+
+        function openDetails(card) {
+            selectedInternship = card;
+
+            document.getElementById("modalTitle").textContent =
+                card.dataset.title;
+
+            document.getElementById("modalCompany").textContent =
+                card.dataset.company;
+
+            document.getElementById("modalDescription").textContent =
+                card.dataset.description;
+
+            document.getElementById("modalRequirements").textContent =
+                card.dataset.requirements;
+
+            document.getElementById("modalSchedule").textContent =
+                card.dataset.schedule;
+
+            document.getElementById("modalLocation").textContent =
+                `${card.dataset.location.charAt(0).toUpperCase() +
+                card.dataset.location.slice(1)} · ${
+                    card.dataset.modality.charAt(0).toUpperCase() +
+                    card.dataset.modality.slice(1)
+                }`;
+
+            detailsModal.classList.add("active");
+            document.body.style.overflow = "hidden";
+        }
+
+        document.querySelectorAll(".details-button").forEach((button) => {
+            button.addEventListener("click", () => {
+                openDetails(button.closest(".internship-card"));
+            });
+        });
+
+        function closeDetails() {
+            detailsModal.classList.remove("active");
+            document.body.style.overflow = "";
+        }
+
+        closeModal.addEventListener("click", closeDetails);
+
+        detailsModal.addEventListener("click", (event) => {
+            if (event.target === detailsModal) {
+                closeDetails();
+            }
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+                closeDetails();
+            }
+        });
+
+        function applyForInternship(button) {
+            const card = button.closest(".internship-card") || selectedInternship;
+
+            if (!card) {
+                return;
+            }
+
+            alert(
+                `Seleccionaste la pasantía "${card.dataset.title}".\n\n` +
+                "Esta es una demostración de NextHire. La postulación todavía " +
+                "no se envía ni se guarda. Más adelante conectaremos esta " +
+                "función con el perfil del estudiante y el panel de empresas."
+            );
+        }
+
+        modalApplyButton.addEventListener("click", () => {
+            applyForInternship(modalApplyButton);
+        });
+
+        filterInternships();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar empleo | NextHire</title>
+
+    <style>
+        :root {
+            --lila: #8b5cf6;
+            --lila-claro: #f1ebff;
+            --azul: #172554;
+            --fondo: #f5f6fc;
+            --texto: #27324b;
+            --gris: #68738a;
+            --borde: #e2e5ef;
+            --blanco: #ffffff;
+            --verde: #238653;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: var(--texto);
+            background: var(--fondo);
+        }
+
+        button, input, select {
+            font: inherit;
+        }
+
+        .topbar {
+            min-height: 74px;
+            padding: 16px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            background: white;
+            border-bottom: 1px solid var(--borde);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--azul);
+            text-decoration: none;
+            font-size: 23px;
+            font-weight: 800;
+        }
+
+        .brand-icon {
+            width: 39px;
+            height: 39px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            color: white;
+            background: var(--lila);
+        }
+
+        .brand-dot {
+            color: var(--lila);
+        }
+
+        .back-link {
+            color: var(--azul);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .back-link:hover {
+            color: var(--lila);
+        }
+
+        .hero {
+            padding: 55px 24px 70px;
+            color: white;
+            background: linear-gradient(120deg, #172554, #343c78);
+        }
+
+        .hero-inner {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .eyebrow {
+            color: #d4c4ff;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .hero h1 {
+            margin: 13px 0;
+            font-size: clamp(32px, 5vw, 48px);
+            line-height: 1.15;
+        }
+
+        .hero h1 span {
+            color: #c4b5fd;
+        }
+
+        .hero p {
+            max-width: 600px;
+            color: #e1e7f7;
+            line-height: 1.8;
+        }
+
+        .search-box {
+            margin-top: 28px;
+            padding: 14px;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 180px auto;
+            gap: 12px;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .search-box input,
+        .search-box select {
+            width: 100%;
+            min-width: 0;
+            padding: 13px;
+            border: 1px solid var(--borde);
+            border-radius: 9px;
+            outline: none;
+            background: white;
+            color: var(--texto);
+        }
+
+        .search-box input:focus,
+        .search-box select:focus {
+            border-color: var(--lila);
+        }
+
+        .button {
+            border: none;
+            border-radius: 9px;
+            padding: 13px 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .button-primary {
+            color: white;
+            background: var(--lila);
+        }
+
+        .button-primary:hover {
+            background: #7442df;
+        }
+
+        .button-light {
+            color: var(--azul);
+            background: var(--lila-claro);
+        }
+
+        .button-light:hover {
+            background: #e6dcff;
+        }
+
+        .main-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 38px 24px 55px;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+
+        .section-heading h2 {
+            margin: 0 0 7px;
+            color: var(--azul);
+            font-size: 25px;
+        }
+
+        .section-heading p {
+            margin: 0;
+            color: var(--gris);
+            line-height: 1.6;
+        }
+
+        .result-count {
+            color: var(--gris);
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .job-list {
+            display: grid;
+            gap: 17px;
+        }
+
+        .job-card {
+            padding: 23px;
+            display: grid;
+            grid-template-columns: 58px minmax(0, 1fr) auto;
+            align-items: start;
+            gap: 18px;
+            border: 1px solid var(--borde);
+            border-radius: 16px;
+            background: white;
+            transition: 0.2s;
+        }
+
+        .job-card:hover {
+            border-color: #c7b4ff;
+            box-shadow: 0 8px 24px rgba(23, 37, 84, 0.06);
+            transform: translateY(-2px);
+        }
+
+        .company-icon {
+            width: 58px;
+            height: 58px;
+            display: grid;
+            place-items: center;
+            border-radius: 15px;
+            color: var(--lila);
+            background: var(--lila-claro);
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .job-title {
+            margin: 0 0 7px;
+            color: var(--azul);
+            font-size: 19px;
+        }
+
+        .company-name {
+            margin: 0 0 12px;
+            color: var(--gris);
+            font-size: 14px;
+        }
+
+        .job-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            padding: 6px 10px;
+            border-radius: 7px;
+            color: #514078;
+            background: var(--lila-claro);
+            font-size: 12px;
+        }
+
+        .tag.neutral {
+            color: #475569;
+            background: #f0f2f7;
+        }
+
+        .job-description {
+            margin: 15px 0 0;
+            color: var(--gris);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .job-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            min-width: 130px;
+        }
+
+        .job-actions .button {
+            white-space: nowrap;
+            font-size: 12px;
+        }
+
+        .empty-message {
+            padding: 35px 20px;
+            text-align: center;
+            border: 1px dashed #c9cde0;
+            border-radius: 15px;
+            background: white;
+        }
+
+        .empty-message h3 {
+            margin-top: 0;
+            color: var(--azul);
+        }
+
+        .empty-message p {
+            color: var(--gris);
+            line-height: 1.6;
+        }
+
+        .notice {
+            margin-top: 24px;
+            padding: 16px;
+            border-radius: 12px;
+            color: #514078;
+            background: var(--lila-claro);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .footer {
+            padding: 25px;
+            text-align: center;
+            color: var(--gris);
+            background: white;
+            border-top: 1px solid var(--borde);
+            font-size: 12px;
+        }
+
+        /* VENTANA DE DETALLES */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 10;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(13, 22, 48, 0.65);
+        }
+
+        .modal[hidden] {
+            display: none;
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: 540px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 28px;
+            border-radius: 17px;
+            background: white;
+        }
+
+        .modal-content h2 {
+            color: var(--azul);
+        }
+
+        .modal-content p {
+            color: var(--gris);
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+
+        .modal-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-actions .button {
+            flex: 1;
+        }
+
+        @media (max-width: 760px) {
+            .search-box {
+                grid-template-columns: 1fr;
+            }
+
+            .job-card {
+                grid-template-columns: 48px minmax(0, 1fr);
+                padding: 18px;
+                gap: 13px;
+            }
+
+            .company-icon {
+                width: 48px;
+                height: 48px;
+            }
+
+            .job-actions {
+                grid-column: 1 / -1;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .job-actions .button {
+                flex: 1;
+            }
+
+            .section-heading {
+                align-items: start;
+                flex-direction: column;
+            }
+
+            .hero {
+                padding-top: 40px;
+            }
+        }
+
+        @media (max-width: 440px) {
+            .topbar {
+                padding: 13px 16px;
+            }
+
+            .brand {
+                font-size: 20px;
+            }
+
+            .back-link {
+                font-size: 12px;
+            }
+
+            .main-content {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .job-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="topbar">
+        <a href="panel-persona.html" class="brand">
+            <span class="brand-icon">N</span>
+            <span>NextHire<span class="brand-dot">.</span></span>
+        </a>
+
+        <a href="panel-persona.html" class="back-link">
+            ← Mi espacio
+        </a>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <span class="eyebrow">TU PRÓXIMO PASO PROFESIONAL</span>
+
+            <h1>Encontrá tu próximo<br><span>empleo.</span></h1>
+
+            <p>
+                Explorá oportunidades laborales, conocé los requisitos
+                y descubrí opciones para continuar creciendo profesionalmente.
+            </p>
+
+            <div class="search-box">
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Buscar cargo, empresa o área..."
+                    aria-label="Buscar oportunidades"
+                >
+
+                <select id="typeFilter" aria-label="Filtrar por tipo de empleo">
+                    <option value="todos">Todos los tipos</option>
+                    <option value="tiempo-completo">Tiempo completo</option>
+                    <option value="medio-tiempo">Medio tiempo</option>
+                    <option value="temporal">Temporal</option>
+                </select>
+
+                <button class="button button-primary" id="searchButton">
+                    Buscar empleo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <main class="main-content">
+
+        <div class="section-heading">
+            <div>
+                <h2>Oportunidades laborales</h2>
+                <p>Explorá las ofertas disponibles en NextHire.</p>
+            </div>
+
+            <span class="result-count" id="resultCount" aria-live="polite">
+                4 oportunidades
+            </span>
+        </div>
+
+        <section class="job-list" id="jobList">
+
+            <!-- OFERTA DE DEMOSTRACIÓN 1 -->
+            <article
+                class="job-card"
+                data-title="asistente administrativo"
+                data-company="empresa demostración"
+                data-area="administración"
+                data-type="tiempo-completo"
+                data-description="Buscamos una persona organizada, responsable y con interés en tareas administrativas. Las funciones incluyen organización de documentos, atención de consultas y apoyo al equipo."
+                data-requirements="Manejo básico de herramientas de oficina, buena comunicación y organización."
+                data-location="Luque, Paraguay"
+                data-modality="Presencial"
+            >
+                <div class="company-icon">E</div>
+
+                <div>
+                    <h3 class="job-title">Asistente administrativo</h3>
+                    <p class="company-name">Empresa de demostración</p>
+
+                    <div class="job-tags">
+                        <span class="tag">Administración</span>
+                        <span class="tag neutral">Tiempo completo</span>
+                        <span class="tag neutral">Presencial</span>
+                    </div>
+
+                    <p class="job-description">
+                        Apoyo en organización de documentos, tareas de oficina
+                        y atención de consultas.
+                    </p>
+                </div>
+
+                <div class="job-actions">
+                    <button class="button button-light details-button">
+                        Ver detalles
+                    </button>
+                    <button class="button button-primary apply-button">
+                        Postularme →
+                    </button>
+                </div>
+            </article>
+
+            <!-- OFERTA DE DEMOSTRACIÓN 2 -->
+            <article
+                class="job-card"
+                data-title="auxiliar de informática"
+                data-company="tecnología demostración"
+                data-area="informática tecnología"
+                data-type="tiempo-completo"
+                data-description="Oportunidad de demostración para apoyar en tareas informáticas, preparación de equipos y asistencia técnica básica."
+                data-requirements="Interés en informática, responsabilidad y disposición para aprender."
+                data-location="Asunción, Paraguay"
+                data-modality="Presencial"
+            >
+                <div class="company-icon">T</div>
+
+                <div>
+                    <h3 class="job-title">Auxiliar de informática</h3>
+                    <p class="company-name">Tecnología de demostración</p>
+
+                    <div class="job-tags">
+                        <span class="tag">Informática</span>
+                        <span class="tag neutral">Tiempo completo</span>
+                        <span class="tag neutral">Presencial</span>
+                    </div>
+
+                    <p class="job-description">
+                        Apoyo en tareas informáticas y asistencia técnica básica.
+                    </p>
+                </div>
+
+                <div class="job-actions">
+                    <button class="button button-light details-button">
+                        Ver detalles
+                    </button>
+                    <button class="button button-primary apply-button">
+                        Postularme →
+                    </button>
+                </div>
+            </article>
+
+            <!-- OFERTA DE DEMOSTRACIÓN 3 -->
+            <article
+                class="job-card"
+                data-title="asistente de atención al cliente"
+                data-company="servicios demostración"
+                data-area="atención al cliente ventas"
+                data-type="medio-tiempo"
+                data-description="Buscamos una persona cordial para responder consultas, orientar a clientes y colaborar con el equipo de atención."
+                data-requirements="Buena comunicación, trato respetuoso y ganas de aprender."
+                data-location="Luque, Paraguay"
+                data-modality="Híbrida"
+            >
+                <div class="company-icon">S</div>
+
+                <div>
+                    <h3 class="job-title">Asistente de atención al cliente</h3>
+                    <p class="company-name">Servicios de demostración</p>
+
+                    <div class="job-tags">
+                        <span class="tag">Atención al cliente</span>
+                        <span class="tag neutral">Medio tiempo</span>
+                        <span class="tag neutral">Híbrida</span>
+                    </div>
+
+                    <p class="job-description">
+                        Atención de consultas y orientación a clientes.
+                    </p>
+                </div>
+
+                <div class="job-actions">
+                    <button class="button button-light details-button">
+                        Ver detalles
+                    </button>
+                    <button class="button button-primary apply-button">
+                        Postularme →
+                    </button>
+                </div>
+            </article>
+
+            <!-- OFERTA DE DEMOSTRACIÓN 4 -->
+            <article
+                class="job-card"
+                data-title="diseñador de contenido digital"
+                data-company="estudio creativo demostración"
+                data-area="diseño comunicación marketing"
+                data-type="temporal"
+                data-description="Colaboración de demostración para crear piezas digitales, organizar contenido y apoyar en tareas de comunicación."
+                data-requirements="Creatividad, interés en diseño digital y conocimientos básicos de herramientas de edición."
+                data-location="Remoto"
+                data-modality="Remota"
+            >
+                <div class="company-icon">D</div>
+
+                <div>
+                    <h3 class="job-title">Diseñador de contenido digital</h3>
+                    <p class="company-name">Estudio creativo de demostración</p>
+
+                    <div class="job-tags">
+                        <span class="tag">Diseño y comunicación</span>
+                        <span class="tag neutral">Temporal</span>
+                        <span class="tag neutral">Remota</span>
+                    </div>
+
+                    <p class="job-description">
+                        Creación de piezas digitales y apoyo en contenido.
+                    </p>
+                </div>
+
+                <div class="job-actions">
+                    <button class="button button-light details-button">
+                        Ver detalles
+                    </button>
+                    <button class="button button-primary apply-button">
+                        Postularme →
+                    </button>
+                </div>
+            </article>
+
+        </section>
+
+        <div class="empty-message" id="emptyMessage" hidden>
+            <h3>No encontramos oportunidades</h3>
+            <p>
+                Probá con otra palabra o cambiá el filtro para ver más resultados.
+            </p>
+            <button class="button button-light" id="clearButton">
+                Limpiar búsqueda
+            </button>
+        </div>
+
+        <div class="notice">
+            <strong>ℹ️ Aviso:</strong>
+            estas ofertas son ejemplos de demostración, no vacantes laborales
+            verificadas. Más adelante conectaremos esta sección con las
+            publicaciones reales que creen las empresas dentro de NextHire.
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        NextHire © 2026 · Tu próximo paso comienza aquí.
+    </footer>
+
+    <!-- VENTANA DE DETALLES -->
+    <div class="modal" id="detailsModal" hidden>
+        <div
+            class="modal-content"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modalTitle"
+        >
+            <h2 id="modalTitle">Detalles de la oportunidad</h2>
+
+            <p id="modalDescription"></p>
+
+            <p id="modalRequirements"></p>
+
+            <p id="modalLocation"></p>
+
+            <div class="modal-actions">
+                <button
+                    type="button"
+                    class="button button-light"
+                    id="closeModal"
+                >
+                    Cerrar
+                </button>
+
+                <button
+                    type="button"
+                    class="button button-primary"
+                    id="modalApply"
+                >
+                    Postularme →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        "use strict";
+
+        const cards = Array.from(document.querySelectorAll(".job-card"));
+        const searchInput = document.getElementById("searchInput");
+        const typeFilter = document.getElementById("typeFilter");
+        const resultCount = document.getElementById("resultCount");
+        const emptyMessage = document.getElementById("emptyMessage");
+        const jobList = document.getElementById("jobList");
+
+        const modal = document.getElementById("detailsModal");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalDescription = document.getElementById("modalDescription");
+        const modalRequirements = document.getElementById("modalRequirements");
+        const modalLocation = document.getElementById("modalLocation");
+        const closeModal = document.getElementById("closeModal");
+        const modalApply = document.getElementById("modalApply");
+
+        let selectedCard = null;
+
+        function filterJobs() {
+            const keyword = searchInput.value.trim().toLocaleLowerCase("es");
+            const selectedType = typeFilter.value;
+
+            let visibleCount = 0;
+
+            cards.forEach(function(card) {
+                const searchableText = [
+                    card.dataset.title,
+                    card.dataset.company,
+                    card.dataset.area,
+                    card.dataset.location,
+                    card.dataset.modality
+                ].join(" ").toLocaleLowerCase("es");
+
+                const matchesKeyword = searchableText.includes(keyword);
+                const matchesType =
+                    selectedType === "todos" ||
+                    card.dataset.type === selectedType;
+
+                const visible = matchesKeyword && matchesType;
+
+                card.hidden = !visible;
+
+                if (visible) {
+                    visibleCount++;
+                }
+            });
+
+            resultCount.textContent =
+                visibleCount +
+                (visibleCount === 1
+                    ? " oportunidad"
+                    : " oportunidades");
+
+            emptyMessage.hidden = visibleCount !== 0;
+            jobList.hidden = visibleCount === 0;
+        }
+
+        document.getElementById("searchButton").addEventListener(
+            "click",
+            filterJobs
+        );
+
+        searchInput.addEventListener("input", filterJobs);
+        typeFilter.addEventListener("change", filterJobs);
+
+        searchInput.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                filterJobs();
+            }
+        });
+
+        function openDetails(card) {
+            selectedCard = card;
+
+            modalTitle.textContent =
+                card.querySelector(".job-title").textContent;
+
+            modalDescription.textContent =
+                "Descripción: " + card.dataset.description;
+
+            modalRequirements.textContent =
+                "Requisitos: " + card.dataset.requirements;
+
+            modalLocation.textContent =
+                "Ubicación: " + card.dataset.location +
+                " · Modalidad: " + card.dataset.modality;
+
+            modal.hidden = false;
+            closeModal.focus();
+        }
+
+        function hideModal() {
+            modal.hidden = true;
+        }
+
+        document.querySelectorAll(".details-button").forEach(function(button) {
+            button.addEventListener("click", function() {
+                openDetails(button.closest(".job-card"));
+            });
+        });
+
+        closeModal.addEventListener("click", hideModal);
+
+        modal.addEventListener("click", function(event) {
+            if (event.target === modal) {
+                hideModal();
+            }
+        });
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                hideModal();
+            }
+        });
+
+        function showDemoMessage() {
+            alert(
+                "Esta es una postulación de demostración. " +
+                "Todavía no se envía a una empresa ni se guarda una solicitud. " +
+                "Cuando conectemos NextHire, podrás postularte a las vacantes publicadas."
+            );
+        }
+
+        document.querySelectorAll(".apply-button").forEach(function(button) {
+            button.addEventListener("click", function() {
+                showDemoMessage();
+            });
+        });
+
+        modalApply.addEventListener("click", function() {
+            hideModal();
+            showDemoMessage();
+        });
+
+        document.getElementById("clearButton").addEventListener(
+            "click",
+            function() {
+                searchInput.value = "";
+                typeFilter.value = "todos";
+                filterJobs();
+                searchInput.focus();
+            }
+        );
+
+        filterJobs();
+    </script>
+
+</body>
+</html>
